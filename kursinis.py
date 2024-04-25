@@ -238,7 +238,7 @@ hospital.add_doctor(doctor_factory)
 
 hospital.schedule_appointment("Alice", "Greenwood", "2024-04-28", "11:00")
 hospital.schedule_appointment("Noah", "Smith", "2024-04-20", "13:00")
-hospital.schedule_appointment("Marcus", "Smith", "2024-04-19", "09:17")
+hospital.schedule_appointment("Marcus", "Smith", "2024-04-25", "17:30")
 
 hospital.view_patients()
 hospital.view_doctors()
