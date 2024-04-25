@@ -174,13 +174,13 @@ class Hospital(Observable):
             json.dump(data, file)
 
     def load_from_file(self, filename):
-        with open(filename, "r") as file:
+        with open("pyData.csv", "r") as file:
             data = json.load(file)
             self.patients = [Patient(**p) for p in data["patients"]]
             self.doctors = [Doctor(**d) for d in data["doctors"]]
-            self.appointments = [Appointment(next((p for p in self.patients if p.name == appt[0]), None),
-                                             next((d for d in self.doctors if d.name == appt[1]), None),
-                                             appt[2], appt[3]) for appt in data["appointments"]]
+            self.appointments = [Appointment(next((p for p in self.patients if p.name == apt[0]), None),
+                                             next((d for d in self.doctors if d.name == apt[1]), None),
+                                             apt[2], apt[3]) for apt in data["appointments"]]
 
 
 hospital = Hospital()
@@ -217,7 +217,7 @@ hospital.view_appointments()
 # f = open("duom.txt", "r")
 # print(f.read())
 
-# f = open("rez.txt", "w")
+
 
 
 
