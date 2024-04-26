@@ -1,0 +1,12 @@
+Alice Rosemann,30,12345690,Female,15 Street
+Noah Robertson,40,14784125,Male,124 Main Street
+Marcus Rashford,24,17845236,Male,153 Street
+
+Bob Smith,25,11223364,Male,Cardiologist,200,8
+Robert Ryerson,37,11226548,Male,Gynecologist,200,7
+Rosie Richards,35,11229578,Female,Nurse,50,12
+Andrew Greenwood,32,11224758,Male,Surgeon,350,7
+
+Alice Rosemann,Andrew Greenwood,2024-04-28,11:00
+Noah Robertson,Bob Smith,2024-04-20,13:00
+Marcus Rashford,Bob Smith,2024-04-26,17:30
