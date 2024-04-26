@@ -1,5 +1,4 @@
 import time
-import json
 curr = time.gmtime()
 time_str = time.asctime(curr)
 print(curr)
@@ -160,27 +159,6 @@ class Hospital(Observable):
             appointment.display_info()
             print('\n')
         print('--------------------')
-
-    def remove_patients(self, patient):
-        pass
-
-    def save_to_file(self, filename):
-        data = {
-            "patients": [vars(p) for p in self.patients],
-            "doctors": [vars(d) for d in self.doctors],
-            "appointments": [(a.patient.name, a.doctor.surname, a.date, a.time_slot) for a in self.appointments]
-        }
-        with open(filename, "w") as file:
-            json.dump(data, file)
-
-    def load_from_file(self, filename):
-        with open("pyData.csv", "r") as file:
-            data = json.load(file)
-            self.patients = [Patient(**p) for p in data["patients"]]
-            self.doctors = [Doctor(**d) for d in data["doctors"]]
-            self.appointments = [Appointment(next((p for p in self.patients if p.name == apt[0]), None),
-                                             next((d for d in self.doctors if d.name == apt[1]), None),
-                                             apt[2], apt[3]) for apt in data["appointments"]]
 
 
 hospital = Hospital()
