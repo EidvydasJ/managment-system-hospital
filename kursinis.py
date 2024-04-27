@@ -1,7 +1,7 @@
 import time
-curr = time.gmtime()
-time_str = time.asctime(curr)
-print(curr)
+import datetime
+curr = datetime.datetime.now()
+print(f"Code has been executed on: ", curr)
 
 
 class Observable:  # design pattern
