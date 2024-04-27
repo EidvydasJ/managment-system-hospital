@@ -182,12 +182,62 @@ class Hospital(Observable):
         print('--------------------')
 
 
+class Item:
+    def __init__(self, item_name, item_quantity, item_category, item_description = None):
+        self.item_name = item_name
+        self.item_quantity = item_quantity
+        self.item_category = item_category
+        self.item_description = item_description
+
+    def display_info(self):
+        print("Item name: ", self.item_name)
+        print("Item quantity: ", self.item_quantity)
+        print("Item category: ", self.item_category)
+        if self.item_description:
+            print("Item description: ", self.item_description)
+
+
+class Inventory:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_items(self, rm_item_name):
+        self.items = [item for item in self.items if item.name != rm_item_name]
+
+    def update_item_inventory(self, item_name, new_quantity):
+        for item in self.items:
+            if item.name == item_name:
+                item.quantity = new_quantity
+
+    def search_item(self, query):
+        return [item for item in self.items if query.lower() in item.name.lower()]
+
+    def display_inventory(self):
+        print("----- Inventory -----")
+        for item in self.items:
+            item.display_info()
+            print("")
+        print("--------------------")
+
+    def save_inventory(self, filename):
+        with open(filename, "w") as file:
+            for item in self.items:
+                file.write(f"{item.item_name},{item.item_quantity},{item.item_category},{item.item_description}\n")
+
+    def load_inventory(self, filename):
+        with open(filename, "r") as file:
+            for line in file:
+                name, quantity, category, description = line.strip().split(',')
+                self.items.append(Item(name, int(quantity), category, description))
+
+
+
 hospital = Hospital()
 appointment_notifier = AppointmentNotifier()
 hospital.add_an_observer(appointment_notifier)
-
-# current_date = time.strftime("%Y-%m-%d", time.localtime())
-# current_time_slot = time.strftime("%H:%M", time.localtime())
 
 patient_factory = Factory.create_person("patient", "Alice Rosemann", 30, "12345690", "Female", "15 Street, City")
 hospital.add_patients(patient_factory)
@@ -214,6 +264,18 @@ hospital.schedule_appointment("Marcus Rashford", "Bob Smith", "2024-04-27", "15:
 hospital.view_patients()
 hospital.view_doctors()
 hospital.view_appointments()
+
+inventory = Inventory()
+item1 = Item("Gloves", 2, "Medical device")
+item2 = Item("Surgical Knife", 1, "Medical device")
+inventory.add_item(item1)
+inventory.add_item(item2)
+
+inventory.save_inventory("pyResults.txt")
+inventory.items = []
+inventory.load_inventory("pyData.txt")
+
+inventory.display_inventory()
 
 # f = open("duom.txt", "r")
 # print(f.read())

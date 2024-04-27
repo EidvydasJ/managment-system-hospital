@@ -1,0 +1,2 @@
+Gloves,2,Medical device,None
+Surgical Knife,1,Medical device,None
