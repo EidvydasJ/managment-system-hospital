@@ -85,6 +85,9 @@ class Appointment:
         self.date = date
         self.time_slot = time_slot
 
+    def __str__(self):
+        return f"Patient: {self.patient.name}, Doctor: {self.doctor.name}, Date: {self.date}, Time: {self.time_slot}"
+
     def is_happening_now(self):
         current_time = time.gmtime()
         current_timestamp = time.mktime(current_time)
@@ -137,6 +140,24 @@ class Hospital(Observable):
         else:
             print('Something went wrong... Patient/Doctor not found')
 
+        try:
+            time.strptime(time_slot, "%H:%M")
+        except ValueError:
+            print("Invalid time format! Please use HH:MM format")
+            return
+
+        try:
+            hours, minutes = map(int, time_slot.split(':'))
+            if hours < 0 or hours > 23 or minutes < 0 or minutes > 59:
+                raise ValueError
+        except ValueError:
+            print("Invalid time! The time should be between 00:00 and 23:59.")
+            return
+
+        appointment = Appointment(patient, doctor, date, time_slot)
+        self.appointments.append(appointment)
+        self.notify_observers(appointment)
+
     def view_patients(self):
         print('----- Patients -----')
         for patient in self.patients:
@@ -187,6 +208,8 @@ hospital.add_doctor(doctor_factory)
 hospital.schedule_appointment("Alice Rosemann", "Andrew Greenwood", "2024-04-28", "11:00")
 hospital.schedule_appointment("Noah Robertson", "Bob Smith", "2024-04-20", "13:00")
 hospital.schedule_appointment("Marcus Rashford", "Bob Smith", "2024-04-19", "09:17")
+hospital.schedule_appointment("Marcus Rashford", "Andrew Greenwood", "2024-05-01", "25:00")
+
 
 hospital.view_patients()
 hospital.view_doctors()
@@ -194,8 +217,5 @@ hospital.view_appointments()
 
 # f = open("duom.txt", "r")
 # print(f.read())
-
-
-
 
 
