@@ -89,10 +89,19 @@ class Appointment:
         return f"Patient: {self.patient.name}, Doctor: {self.doctor.name}, Date: {self.date}, Time: {self.time_slot}"
 
     def is_happening_now(self):
-        current_time = time.gmtime()
-        current_timestamp = time.mktime(current_time)
-        appointment_timestamp = time.mktime(time.strptime(f"{self.date} {self.time_slot}", "%Y-%m-%d %H:%M"))
-        return current_timestamp == appointment_timestamp
+        current_time = time.localtime()
+        current_date = time.strftime("%Y-%m-%d", current_time)
+        current_time_slot = time.strftime("%H:%M", current_time)
+
+        if self.date != current_date:
+            return False
+
+        appointment_hours, appointment_minutes = map(int, self.time_slot.split(':'))
+
+        current_hours, current_minutes = map(int, current_time_slot.split(':'))
+
+        time_difference = abs((current_hours * 60 + current_minutes) - (appointment_hours * 60 + appointment_minutes))
+        return time_difference <= 15
 
     def has_ended(self):
         current_time = time.localtime()
@@ -132,31 +141,22 @@ class Hospital(Observable):
     def schedule_appointment(self, patient_name, doctor_name, date, time_slot):
         patient = next((p for p in self.patients if p.name == patient_name), None)
         doctor = next((d for d in self.doctors if d.name == doctor_name), None)
-        if patient and doctor:
-            appointment = Appointment(patient, doctor, date, time_slot)
-            self.appointments.append(appointment)
-            self.notify_observers(appointment)
-            print('Appointment has been scheduled successfully.')
-        else:
-            print('Something went wrong... Patient/Doctor not found')
-
-        try:
-            time.strptime(time_slot, "%H:%M")
-        except ValueError:
-            print("Invalid time format! Please use HH:MM format")
+        if not patient and not doctor:
+            print('Something went wrong... Patient/Doctor not found\n')
             return
 
         try:
             hours, minutes = map(int, time_slot.split(':'))
             if hours < 0 or hours > 23 or minutes < 0 or minutes > 59:
-                raise ValueError
-        except ValueError:
-            print("Invalid time! The time should be between 00:00 and 23:59.")
-            return
+                raise ValueError("Invalid time! The time should be between 00:00 and 23:59.\n")
+        except ValueError as e:
+            print(e)
+            raise
 
         appointment = Appointment(patient, doctor, date, time_slot)
         self.appointments.append(appointment)
         self.notify_observers(appointment)
+        print('Appointment has been scheduled successfully.\n')
 
     def view_patients(self):
         print('----- Patients -----')
@@ -207,8 +207,8 @@ hospital.add_doctor(doctor_factory)
 
 hospital.schedule_appointment("Alice Rosemann", "Andrew Greenwood", "2024-04-28", "11:00")
 hospital.schedule_appointment("Noah Robertson", "Bob Smith", "2024-04-20", "13:00")
-hospital.schedule_appointment("Marcus Rashford", "Bob Smith", "2024-04-19", "09:17")
-hospital.schedule_appointment("Marcus Rashford", "Andrew Greenwood", "2024-05-01", "25:00")
+hospital.schedule_appointment("Marcus Rashford", "Bob Smith", "2024-04-27", "15:45")
+# hospital.schedule_appointment("Marcus Rashford", "Andrew Greenwood", "2024-05-01", "25:00")
 
 
 hospital.view_patients()
