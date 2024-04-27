@@ -1,5 +1,5 @@
 import pytest
-from kursinis import Factory, Patient, Doctor
+from kursinis import Factory, Patient, Doctor, Hospital
 
 
 @pytest.fixture
@@ -34,3 +34,28 @@ def test_create_doctor(sample_doctor_data):
     assert doctor.specialization == specialization
     assert doctor.hourly_rate == hourly_rate
     assert doctor.hours_worked == hours_worked
+
+
+@pytest.fixture
+def hospital():
+    hospital = Hospital()
+    hospital.add_patients(Patient("Alice Rosemann", 30, "12345690", "Female", "15 Street"))
+    hospital.add_patients(Patient("Noah Robertson", 40, "14784125", "Male", "124 Main Street"))
+    hospital.add_doctor(Doctor("Bob Smith", 25, "11223364", "Male", "Cardiologist", 200, 8))
+    hospital.add_doctor(Doctor("Robert Ryerson", 37, "11226548", "Male", "Gynecologist", 200, 7))
+    return hospital
+
+
+def test_valid_appointment_scheduling(hospital):
+    hospital.schedule_appointment("Alice Rosemann", "Bob Smith", "2024-04-28", "11:00")
+    assert len(hospital.appointments) == 1
+
+
+def test_invalid_appointment_scheduling(hospital):
+    hospital.schedule_appointment("Jarrod Bowen", "Andrew Greenwood", "2024-04-28", "11:00")
+    assert len(hospital.appointments) == 0
+
+
+def test_invalid_time_slot(hospital):
+    with pytest.raises(Exception):
+        hospital.schedule_appointment("Marcus Rashford", "Robert Ryerson", "2024-05-01", "25:00")
