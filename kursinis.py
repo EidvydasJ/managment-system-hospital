@@ -223,7 +223,7 @@ class Inventory:
         print("--------------------")
 
     def save_inventory(self, filename):
-        with open(filename, "w") as file:
+        with open(filename, "a") as file:
             for item in self.items:
                 file.write(f"{item.item_name},{item.item_quantity},{item.item_category},{item.item_description}\n")
 
@@ -232,7 +232,6 @@ class Inventory:
             for line in file:
                 name, quantity, category, description = line.strip().split(',')
                 self.items.append(Item(name, int(quantity), category, description))
-
 
 
 hospital = Hospital()
@@ -271,9 +270,11 @@ item2 = Item("Surgical Knife", 1, "Medical device")
 inventory.add_item(item1)
 inventory.add_item(item2)
 
+inventory.load_inventory("pyResults.txt")
 inventory.save_inventory("pyResults.txt")
 inventory.items = []
-inventory.load_inventory("pyData.txt")
+inventory.load_inventory("pyResults.txt")
+
 
 inventory.display_inventory()
 
