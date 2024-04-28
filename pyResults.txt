@@ -1,3 +1,4 @@
 Paper Sheet,250,Utility,Used for documenting
 Gloves,2,Medical device,Mandatory for surgeons and nurses
-Surgical Knife,1,Medical device,Surgeon's best friend
+Surgical Knife,5,Medical device,Surgeon's best friend
+Disposable Syringe,100,Medical device,Single-use syringes for medical procedures

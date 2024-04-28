@@ -345,4 +345,5 @@ inventory.add_an_observer(item_update)
 
 new_item = Item("Disposable Syringe", 100, "Medical device", "Single-use syringes for medical procedures")
 inventory.add_item(new_item)
+inventory.save_inventory("pyResults.txt")
 inventory.display_inventory()
