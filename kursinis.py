@@ -236,7 +236,7 @@ class Inventory(Observable):
 
     def add_item(self, item):
         self.items.append(item)
-        self.notify_observers_items(item)
+        self.notify_observers_items("Item added: " + str(item))
 
     def remove_items(self, rm_item_name):
         self.items = [item for item in self.items if item.name != rm_item_name]
@@ -249,7 +249,9 @@ class Inventory(Observable):
 
     def search_item(self, query):
         s_result = [item for item in self.items if query.lower() in item.item_name.lower()]
-        self.notify_observers_items(s_result)
+        item_names = [item.item_name for item in s_result]
+        result_string = ", ".join(item_names)
+        self.notify_observers_items("Search results: " + result_string)
         return s_result
 
     def display_inventory(self):
@@ -314,6 +316,8 @@ hospital.view_doctors()
 hospital.view_appointments()
 
 inventory = Inventory()
+item_receiver = ItemReceiver()
+inventory.add_an_observer(item_receiver)
 item1 = Item("Gloves", 2, "Medical device", "Mandatory for surgeons and nurses")
 item2 = Item("Surgical Knife", 1, "Medical device", "Surgeon's best friend")
 inventory.add_item(item1)
@@ -321,10 +325,7 @@ inventory.add_item(item2)
 
 item_search = ItemSearch()
 item_update = ItemUpdate()
-item_receiver = ItemReceiver()
 inventory.add_an_observer(item_search)
-inventory.add_an_observer(item_update)
-inventory.add_an_observer(item_receiver)
 
 inventory.load_inventory("pyResults.txt")
 inventory.save_inventory("pyResults.txt")
@@ -333,8 +334,15 @@ inventory.load_inventory("pyResults.txt")
 
 inventory.display_inventory()
 
-Query = "Gloves"
+Query = "Paper Sheet"
 result = inventory.search_item(Query)
 for item_search in result:
     item_search.display_info()
 
+inventory.update_item_inventory("Surgical Knife", 5)
+inventory.display_inventory()
+inventory.add_an_observer(item_update)
+
+new_item = Item("Disposable Syringe", 100, "Medical device", "Single-use syringes for medical procedures")
+inventory.add_item(new_item)
+inventory.display_inventory()
