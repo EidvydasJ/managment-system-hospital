@@ -18,6 +18,13 @@ class Observable:  # design pattern
         for observer in self._observers:
             observer.update(data)
 
+    def notify_observers_items(self, data):
+        for observer in self._observers:
+            observer.i_update(data)
+
+    def i_update(self, data):
+        pass
+
 
 class Factory:  # design pattern
     @staticmethod
@@ -33,6 +40,24 @@ class Factory:  # design pattern
 class AppointmentNotifier:
     def update(self, data):
         print("New appointment scheduled:\n")
+        print(data)
+
+
+class ItemSearch(Observable):
+    def i_update(self, data):
+        print("Item search successful:\n")
+        print(data)
+
+
+class ItemUpdate(Observable):
+    def i_update(self, data):
+        print("Updated inventory stocks:\n")
+        print(data)
+
+
+class ItemReceiver(Observable):
+    def i_update(self, data):
+        print("Shipment arrived and has been received:\n")
         print(data)
 
 
@@ -183,28 +208,35 @@ class Hospital(Observable):
 
 
 class Item:
-    def __init__(self, item_name, item_quantity, item_category, item_description = None):
+    def __init__(self, item_name, item_quantity, item_category, item_description=None):
+        super().__init__()
         self.item_name = item_name
         self.item_quantity = item_quantity
         self.item_category = item_category
         self.item_description = item_description
 
     def display_info(self):
-        #print("----- Successfully executed search -----")
         print("Item name: ", self.item_name)
         print("Item quantity: ", self.item_quantity)
         print("Item category: ", self.item_category)
         if self.item_description:
             print("Item description: ", self.item_description)
-        #print("--------------------")
+
+    def __str__(self):
+        description = f"Item name: {self.item_name}, Item quantity: {self.item_quantity}, Item category: {self.item_category}"
+        if self.item_description:
+            description += f", Item description: {self.item_description}"
+        return description
 
 
-class Inventory:
+class Inventory(Observable):
     def __init__(self):
+        super().__init__()
         self.items = []
 
     def add_item(self, item):
         self.items.append(item)
+        self.notify_observers_items(item)
 
     def remove_items(self, rm_item_name):
         self.items = [item for item in self.items if item.name != rm_item_name]
@@ -213,9 +245,12 @@ class Inventory:
         for item in self.items:
             if item.item_name == item_name:
                 item.item_quantity = new_quantity
+                self.notify_observers_items(item)
 
     def search_item(self, query):
-        return [item for item in self.items if query.lower() in item.item_name.lower()]
+        s_result = [item for item in self.items if query.lower() in item.item_name.lower()]
+        self.notify_observers_items(s_result)
+        return s_result
 
     def display_inventory(self):
         print("----- Inventory -----")
@@ -284,10 +319,22 @@ item2 = Item("Surgical Knife", 1, "Medical device", "Surgeon's best friend")
 inventory.add_item(item1)
 inventory.add_item(item2)
 
+item_search = ItemSearch()
+item_update = ItemUpdate()
+item_receiver = ItemReceiver()
+inventory.add_an_observer(item_search)
+inventory.add_an_observer(item_update)
+inventory.add_an_observer(item_receiver)
+
 inventory.load_inventory("pyResults.txt")
 inventory.save_inventory("pyResults.txt")
 inventory.items = []
 inventory.load_inventory("pyResults.txt")
 
 inventory.display_inventory()
+
+Query = "Gloves"
+result = inventory.search_item(Query)
+for item_search in result:
+    item_search.display_info()
 
