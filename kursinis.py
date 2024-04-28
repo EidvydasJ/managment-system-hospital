@@ -190,11 +190,13 @@ class Item:
         self.item_description = item_description
 
     def display_info(self):
+        #print("----- Successfully executed search -----")
         print("Item name: ", self.item_name)
         print("Item quantity: ", self.item_quantity)
         print("Item category: ", self.item_category)
         if self.item_description:
             print("Item description: ", self.item_description)
+        #print("--------------------")
 
 
 class Inventory:
@@ -209,11 +211,11 @@ class Inventory:
 
     def update_item_inventory(self, item_name, new_quantity):
         for item in self.items:
-            if item.name == item_name:
-                item.quantity = new_quantity
+            if item.item_name == item_name:
+                item.item_quantity = new_quantity
 
     def search_item(self, query):
-        return [item for item in self.items if query.lower() in item.name.lower()]
+        return [item for item in self.items if query.lower() in item.item_name.lower()]
 
     def display_inventory(self):
         print("----- Inventory -----")
@@ -223,9 +225,21 @@ class Inventory:
         print("--------------------")
 
     def save_inventory(self, filename):
-        with open(filename, "a") as file:
-            for item in self.items:
-                file.write(f"{item.item_name},{item.item_quantity},{item.item_category},{item.item_description}\n")
+        existing_inventory = {}
+        try:
+            with open(filename, "r") as file:
+                for line in file:
+                    name, quantity, category, description = line.strip().split(',')
+                    existing_inventory[name] = (int(quantity), category, description)
+        except FileNotFoundError:
+            pass
+
+        for item in self.items:
+            existing_inventory[item.item_name] = (item.item_quantity, item.item_category, item.item_description)
+
+        with open(filename, "w") as file:
+            for name, (quantity, category, description) in existing_inventory.items():
+                file.write(f"{name},{quantity},{category},{description}\n")
 
     def load_inventory(self, filename):
         with open(filename, "r") as file:
@@ -265,8 +279,8 @@ hospital.view_doctors()
 hospital.view_appointments()
 
 inventory = Inventory()
-item1 = Item("Gloves", 2, "Medical device")
-item2 = Item("Surgical Knife", 1, "Medical device")
+item1 = Item("Gloves", 2, "Medical device", "Mandatory for surgeons and nurses")
+item2 = Item("Surgical Knife", 1, "Medical device", "Surgeon's best friend")
 inventory.add_item(item1)
 inventory.add_item(item2)
 
@@ -275,10 +289,5 @@ inventory.save_inventory("pyResults.txt")
 inventory.items = []
 inventory.load_inventory("pyResults.txt")
 
-
 inventory.display_inventory()
-
-# f = open("duom.txt", "r")
-# print(f.read())
-
 

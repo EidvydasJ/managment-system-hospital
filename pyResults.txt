@@ -1,2 +1,3 @@
-Gloves,2,Medical device,None
-Surgical Knife,1,Medical device,None
+Paper Sheet,250,Utility,Used for documenting
+Gloves,2,Medical device,Mandatory for surgeons and nurses
+Surgical Knife,1,Medical device,Surgeon's best friend
