@@ -5,7 +5,7 @@
 
 ## Funkcijos
 - **Registracija pas gydytoją:** Planuoti vizitų datas ir laikus.
-- **Gydytojų ir pacientų tvarkymas:** Pridėti gydytoją ir pacientą su Factory dizaino modeliu; peržiūrėti esamą pacientų ir gydytojų sąrašą; peržiūrėti gydytojų ir pacientų informaciją.
+- **Gydytojų ir pacientų tvarkymas:** Pridėti gydytoją ir pacientą su Factory dizaino modelio pagalba; peržiūrėti esamą pacientų ir gydytojų sąrašą; peržiūrėti gydytojų ir pacientų informaciją.
 - **Inventoriaus valdymas:** Ieškoti įrankio tarp esamų inventoriuje; pridėti naujų įrankių; atnaujinti jau esamą priemonių kiekį.
 
 ## Objektinio programavimo pagrindiniai ramsčiai
