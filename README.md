@@ -15,6 +15,10 @@
 4. Polimorfizmas
 
 ## Dizaino modeliai
-1. „Factory pattern“
-2. „Observer pattern“
+1. „Factory metodas“
+2. „Observer modelis“
+
+## Kodėl būtent tokie dizaino modeliai?
+- **„Factory metodas“:** Kuomet reikia kurti/pridėti žmogų, tai yra pacientą, gydytoją, labai paprasta tai įvykdyti, pasinaudojant Factory metodu. Šis metodas man patinko ir yra nuostabus, kadangi, kuriant žmogų, nėra būtina atitinkamai klasei kurti objekto ir priskirti visą informaciją - viskas daug paprasčiau. Pagal žmogaus tipą (pacientas tai, ar gydytojas), Factory sukuria žmogų su jam priskirta informacija.
+- **„Observer modelis“:** Modelis, kuris, labiausiai tikėtina, nebuvo parodytas paskaitų metu, tačiau puikiai tiko įgyvendinant mano idėją - pranešti apie kažkokius pasikeitimus. Būtų tai naujo vizito registracija, būtų tai naujų priemonių „atvežimas“, būtų tai meginimas surasti objektą inventoriuje ar atnaujinti sandėlio turinį.
 
