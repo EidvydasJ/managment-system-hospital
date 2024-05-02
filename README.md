@@ -1,1 +1,1 @@
-# Hospital Management System
+# Paprasta ligoninės valdymo sistema
