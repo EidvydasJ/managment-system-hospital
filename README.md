@@ -77,7 +77,7 @@ And, finally:
         self.items = []
     # the rest of the code
 ```
-Ad you can see, I am not a huge fan of hiding stuff that ideally should be hidden. Even though I am not utilizing fully Encapsulation, I do admit that it is a good practice to make something in my code private.
+As you can see, I am not a huge fan of hiding stuff that ideally should be hidden. Even though I am not utilizing fully Encapsulation, I do admit that it is a good practice to make something in my code private.
 ##### **Inheritance:**
 Inheritance was used quite often, whether I had to create a person, or to simply implement the Observer. Here's what we got:
 ```
