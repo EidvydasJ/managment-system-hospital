@@ -1,24 +1,24 @@
-# Paprasta ligoninės valdymo sistema
+# Simple Hospital Management System
 
-## Apžvalga
-Ši ligoninės valdymo sistema yra „Python“ programa, skirta padėti tvarkyti pacientų ir gydytojų sąrašą, tvarkyti vizitus ir inventorių ligoninės aplinkoje. Joje sutinkamos funkcijos, skirtos planuoti vizitus, tvarkyti informaciją apie pacientus bei gydytojus ir tvarkyti medicinos įrankių, priemonių inventorių.
+## Overview
+This hospital management system is a Python program designed to help manage patient and doctor rosters, manage visits and inventory in a hospital environment. It includes functions for planning visits, managing information about patients and doctors, and managing the inventory of medical tools and equipment.
 
-## Funkcijos
-- **Registracija pas gydytoją:** Planuoti vizitų datas ir laikus.
-- **Gydytojų ir pacientų tvarkymas:** Pridėti gydytoją ir pacientą su Factory dizaino modelio pagalba; peržiūrėti esamą pacientų ir gydytojų sąrašą; peržiūrėti gydytojų ir pacientų informaciją.
-- **Inventoriaus valdymas:** Ieškoti įrankio tarp esamų inventoriuje; pridėti naujų įrankių; atnaujinti jau esamą priemonių kiekį.
+## Features
+- **Appointment Scheduling:** Schedule appointments between patients and doctors.
+- **Patient and Doctor Management:** Add, view, and manage patient and doctor information.
+- **Inventory Management:** Add, view, update, and search items in the hospital's inventory.
 
-## Objektinio programavimo pagrindiniai ramsčiai
-1. Enkapsuliacija
-2. Paveldėjimas
-3. Abstrakcija
-4. Polimorfizmas
+## Object-Oriented Programming (OOP) Pillars
+1. Encapsulation
+2. Inheritance
+3. Abstraction
+4. Polimorphism
 
-## Dizaino modeliai
-1. „Factory metodas“
-2. „Observer modelis“
+## Design patterns
+1. „Factory method“
+2. „Observer pattern“
 
-## Kodėl būtent tokie dizaino modeliai?
-- **„Factory metodas“:** Kuomet reikia kurti/pridėti žmogų, tai yra pacientą, gydytoją, labai paprasta tai įvykdyti, pasinaudojant Factory metodu. Šis metodas man patinko ir yra nuostabus, kadangi, kuriant žmogų, nėra būtina atitinkamai klasei kurti objekto ir priskirti visą informaciją - viskas daug paprasčiau. Pagal žmogaus tipą (pacientas tai, ar gydytojas), Factory sukuria žmogų su jam priskirta informacija.
-- **„Observer modelis“:** Modelis, kuris, labiausiai tikėtina, nebuvo parodytas paskaitų metu, tačiau puikiai tiko įgyvendinant mano idėją - pranešti apie kažkokius pasikeitimus. Būtų tai naujo vizito registracija, būtų tai naujų priemonių „atvežimas“, būtų tai meginimas surasti objektą inventoriuje ar atnaujinti sandėlio turinį.
+## Why these patterns?
+- **„Factory method“:** When you need to create/add a person, that is, a patient, a doctor, it is very easy to do this using the Factory method. I liked this method and it is wonderful, because when creating a person, it is not necessary to create an object for the corresponding class and assign all the information - everything is much simpler. Based on the type of person (patient or doctor), Factory creates a person with the information assigned to it.
+- **„Observer pattern“:** A model that, most likely, was not shown during the lectures, but it was perfect for implementing my idea - to announce some changes. It could be the registration of a new visit, it could be the "arrival" of new tools, it could be the search for an object in the inventory or updating the contents of the storage.
 
