@@ -26,7 +26,34 @@ Using this program is quite easy - as it was the point of my work. Unfortunately
 
 ## Where can OOP be seen in the code?
 ##### **Encapsulation:**
+```
+    def __init__(self):
+        super().__init__()
+        self.patients = []
+        self.doctors = []
+        self.appointments = []
 
+    def add_patients(self, patient):
+        self.patients.append(patient)
+
+    def add_doctor(self, doctor):
+        self.doctors.append(doctor)
+```
+In this case, none of the lists are being hidden, however, they still represent encapsulation. Presume, I for some reason don't want anyone to see what's inside these lists. All I have do to here is just make these lists private:
+```
+    def __init__(self):
+        super().__init__()
+        self.__patients = []
+        self.__doctors = []
+        self.__appointments = []
+    # Since we made the lists private, we need to change something else
+
+    def add_patients(self, patient):
+        self.__patients.append(patient)
+
+    def add_doctor(self, doctor):
+        self.__doctors.append(doctor)
+```
 ##### **Inheritance:**
 
 ##### **Abstraction:**
