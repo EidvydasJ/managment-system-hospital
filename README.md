@@ -150,7 +150,32 @@ Here you can see another instance of Inheritance. This time we have a class that
 ##### **Polymorphism:**
 Polymorphism can be seen twice.
 The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
-
+```
+class Person:
+# the rest of the method (initialization)
+    def display_info(self):
+        print("Name: ", self.name)
+        print("Age: ", self.age)
+        print("Phone number: ", self.phone)
+        print("Gender: ", self.gender)
+```
+```
+class Patient(Person):
+# the rest of the method (initialization)
+    def display_info(self):
+        super().display_info()
+        print("Address: ", self.address)
+```
+```
+class Doctor(Person):
+# the rest of the method (initialization)
+    def display_info(self):
+        super().display_info()
+        print("This doctor is specialised ", self.specialization)
+        print(f"Hourly rate for {self.specialization} is {self.hourly_rate}.")
+        print(f"Dr. {self.name} is usually working {self.hours_worked} hours daily.")
+        print(f"Dr. {self.name}'s salary: {self.calculate_salary()}.")
+```
 Both `Patient` and `Doctor` inherit the `display_info` method from the parent class `Person`. However, each class has its own implementation of `display_info` to show patient-specific or doctor-specific information.
 
 When you call `display_info` on a `Patient` object or a `Doctor` object, the correct implementation is executed based on the object's actual type. This is polymorphism, because the same method name (`display_info`) exhibits different behavior depending on the object it's called on.
