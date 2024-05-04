@@ -148,3 +148,9 @@ Here you can see another instance of Inheritance. This time we have a class that
 ##### **Abstraction:**
 
 ##### **Polymorphism:**
+Polymorphism can be seen twice.
+The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
+
+Both `Patient` and `Doctor` inherit the `display_info` method from the parent class `Person`. However, each class has its own implementation of `display_info` to show patient-specific or doctor-specific information.
+
+When you call `display_info` on a `Patient` object or a `Doctor` object, the correct implementation is executed based on the object's actual type. This is polymorphism, because the same method name (`display_info`) exhibits different behavior depending on the object it's called on.
