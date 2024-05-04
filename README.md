@@ -25,7 +25,7 @@ Using this program is quite easy - as it was the point of my work. Unfortunately
 - **„Observer pattern“:** A model that, most likely, was not shown during the lectures, but it was perfect for implementing my idea - to announce some changes. It could be the registration of a new visit, it could be the "arrival" of new tools, it could be the search for an object in the inventory or updating the contents of the storage.
 
 ## Where can OOP be seen in the code?
-##### **Encapsulation:**
+#### **Encapsulation:**
 ```
     def __init__(self):
         super().__init__()
@@ -78,7 +78,7 @@ And, finally:
     # the rest of the code
 ```
 As you can see, I am not a huge fan of hiding stuff that ideally should be hidden. Even though I am not fully utilizing Encapsulation, I do admit that it is a good practice to make something in my code private.
-##### **Inheritance:**
+#### **Inheritance:**
 Inheritance was used quite often, whether I had to create a person, or to simply implement the Observer. Here's what we got:
 ```
 class ItemSearch(Observable):
@@ -145,9 +145,9 @@ class Doctor(Person):
 ```
 Here you can see another instance of Inheritance. This time we have a class that has its own attributes that are being inherited by two other classes. In this case, `class Person` has a set of standard data like name, age, phone and gender. Later on, `class Patient` and `class Doctor` inherit all of the attributes, but also are being given their own attributes like `address` for patients and `specialization`,`hourly_rate` and `hours_worked` for doctors.
 
-##### **Abstraction:**
+#### **Abstraction:**
 
-##### **Polymorphism:**
+#### **Polymorphism:**
 Polymorphism can be seen several times. The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
 ```
 class Person:
