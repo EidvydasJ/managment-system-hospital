@@ -148,8 +148,7 @@ Here you can see another instance of Inheritance. This time we have a class that
 ##### **Abstraction:**
 
 ##### **Polymorphism:**
-Polymorphism can be seen twice.
-The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
+Polymorphism can be seen several times. The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
 ```
 class Person:
 # the rest of the method (initialization)
@@ -179,3 +178,46 @@ class Doctor(Person):
 Both `Patient` and `Doctor` inherit the `display_info` method from the parent class `Person`. However, each class has its own implementation of `display_info` to show patient-specific or doctor-specific information.
 
 When you call `display_info` on a `Patient` object or a `Doctor` object, the correct implementation is executed based on the object's actual type. This is polymorphism, because the same method name (`display_info`) exhibits different behavior depending on the object it's called on.
+
+In addition, `display_info` method can also be seen in the class `Item` (another instance of polymorphism):
+```
+class Item:
+# initialization
+    def display_info(self):
+        print("Item name: ", self.item_name)
+        print("Item quantity: ", self.item_quantity)
+        print("Item category: ", self.item_category)
+        if self.item_description:
+            print("Item description: ", self.item_description)
+```
+
+The `Observable` class and its subclasses demonstrate a different type of polymorphism. Here's why:
+```
+class Observable:
+# the rest of the class (will be shown next paragraph)
+    def i_update(self, data):
+        pass
+
+# ....
+
+class ItemSearch(Observable):
+    def i_update(self, data):
+        print("Item search successful:\n")
+        print(data)
+
+class ItemUpdate(Observable):
+    def i_update(self, data):
+        print("Updated inventory stocks:\n")
+        print(data)
+
+class ItemReceiver(Observable):
+    def i_update(self, data):
+        print("Shipment arrived and has been received:\n")
+        print(data)
+```
+- The `Observable` class defines an interface with methods like `notify_observers`.
+- Different classes like `Hospital` and `Inventory` inherit from `Observable`.
+- Even though they inherit the same method (`notify_observers`), each class might have its own data and logic for what information it sends to the observers.
+
+When you call `notify_observers` on a `Hospital` object or an `Inventory` object, the specific implementation defined in that class is executed. This allows different subclasses to provide their own behavior for the inherited method, showcasing another form of polymorphism. So, the code demonstrates polymorphism through inheritance with overridden methods and through the use of an abstract base class (`Observable`) that allows subclasses to define specific notification behaviors.
+
