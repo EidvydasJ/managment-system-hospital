@@ -195,6 +195,10 @@ The `Observable` class and its subclasses demonstrate a different type of polymo
 ```
 class Observable:
 # the rest of the class (will be shown next paragraph)
+    def notify_observers_items(self, data):
+        for observer in self._observers:
+            observer.i_update(data)
+
     def i_update(self, data):
         pass
 
