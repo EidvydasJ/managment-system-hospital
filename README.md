@@ -225,3 +225,30 @@ class ItemReceiver(Observable):
 
 When you call `notify_observers` on a `Hospital` object or an `Inventory` object, the specific implementation defined in that class is executed. This allows different subclasses to provide their own behavior for the inherited method, showcasing another form of polymorphism. So, the code demonstrates polymorphism through inheritance with overridden methods and through the use of an abstract base class (`Observable`) that allows subclasses to define specific notification behaviors.
 
+## Examples of the design patterns used in this work
+#### **Observer pattern:**
+Observer is a behavioral design pattern that allows some objects to notify other objects about changes in their state. Let's take a look at the main class of the Observer pattern.
+```
+class Observable:  # design pattern
+    def __init__(self):
+        self._observers = []
+
+    def add_an_observer(self, observer):
+        self._observers.append(observer)
+
+    def remove_an_observer(self, observer):
+        self._observers.append(observer)
+
+    def notify_observers(self, data):
+        for observer in self._observers:
+            observer.update(data)
+
+    def notify_observers_items(self, data):
+        for observer in self._observers:
+            observer.i_update(data)
+
+    def i_update(self, data):
+        pass
+```
+Subject `Observable` defines the interface for attaching and detaching observers, as well as it maintains a list of observers and notifies them of state changes. Methods `notify_observers` and `notify_observers_items` are responsible for notifying the program about executed queries in the code. For example:
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/5e75e1d7-896e-4409-964c-78bdbd4a5bb6)
