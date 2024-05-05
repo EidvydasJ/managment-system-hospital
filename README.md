@@ -476,7 +476,7 @@ This is a snippet of the very first lines in my code. Purpose is quite simple - 
 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/341505ab-cd28-4f8d-8ea8-a50ec5410525)
 
-I tried using `time.localtime()`, `time.gmtime()` alongside `time.mktime()`, `time.strftime()` methods, but to no avail. That was until I asked Copilot for help. Copilot helped me to resolve this issue. AS you can see, the time is shown just like I wanted to. 
+I tried using `time.localtime()`, `time.gmtime()` alongside `time.mktime()`, `time.strftime()` methods, but to no avail. That was until I asked Copilot for help. Copilot helped me to resolve this issue. As you can see, the time is shown just like I wanted to. 
 
 Now, the next instance where I had to operate with time was appointment scheduling.
 ```
@@ -618,3 +618,5 @@ or:
         self._observers.append(observer)
 ```
 Basically, I've added these implementations just for the sake of it. Do I really need them? Not necessarily. Should they really be here? Most likely not, due to the fact that I'm not sure how to utilize them.
+
+## Results and Conclusion
