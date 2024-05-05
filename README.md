@@ -3,7 +3,7 @@
 ## Overview
 This hospital management system is a Python program designed to help manage patient and doctor rosters, manage visits and inventory in a hospital environment. It includes features for planning visits, managing information about patients and doctors, and managing the inventory of medical tools and equipment. You should be able to run this program on any code editing sotfware like Visual Studio Code, PyCharm. Well, this course work has been done using PyCharm because it offered the easiest way of operating with files, as well as PyCharm recognised Git, so they easily got paired. As a result, I could commit my changes via PyCharm, not even having to open Git Bash.
 
-Using this program is quite easy - as it was the point of my work. Unfortunately, I've had issues with this work even though I was trying to do stuff in the easiest way possible. Perhaps that is why, as a user, you have to be careful while operating with data file "pyData.txt". Sometimes, this file may lead to misbehavior in the results, as will be shown in a screenshot a little bit later. But other than that, everything else is relatively easy to comprehend. All you have to do is call necessary methods, functions with correspinding data. Without further ado, let's dive into it.
+Using this program is quite easy - as it was the point of my work. Unfortunately, I've had issues with this work even though I was trying to do stuff in the easiest way possible. Perhaps that is why, as a user, you have to be careful while operating with data file "pyResults.txt". Sometimes, this file may lead to misbehavior in the results, as will be shown in a screenshot a little bit later. But other than that, everything else is relatively easy to comprehend. All you have to do is call necessary methods, functions with corresponding data. Without further ado, let's dive into it.
 
 ## Features
 - **Appointment Scheduling:** Schedule appointments between patients and doctors.
@@ -146,7 +146,47 @@ class Doctor(Person):
 Here you can see another instance of Inheritance. This time we have a class that has its own attributes that are being inherited by two other classes. In this case, `class Person` has a set of standard data like name, age, phone and gender. Later on, `class Patient` and `class Doctor` inherit all of the attributes, but also are being given their own attributes like `address` for patients and `specialization`,`hourly_rate` and `hours_worked` for doctors.
 
 #### **Abstraction:**
+I've realised that to this date I don't the difference between Encapsulation and Abstraction. I really feel like they are the same thing, even though I've been told otherwise. Even the examples I've seen couldn't help me understand it more. Just for this case, I've asked Chat GPT to look for potential examples of Abstraction. Obviously, GPT finds and generates anything you need. Well, the results are as follows:
 
+```
+class Item:
+    def __init__(self, item_name, item_quantity, item_category, item_description=None):
+        super().__init__()
+        self.item_name = item_name
+        self.item_quantity = item_quantity
+        self.item_category = item_category
+        self.item_description = item_description
+
+    def display_info(self):
+        print("Item name: ", self.item_name)
+        print("Item quantity: ", self.item_quantity)
+        print("Item category: ", self.item_category)
+        if self.item_description:
+            print("Item description: ", self.item_description)
+```
+```
+class Hospital(Observable):
+    def __init__(self):
+        super().__init__()
+        self.patients = []
+        self.doctors = []
+        self.appointments = []
+
+    def add_patients(self, patient):
+        self.patients.append(patient)
+
+    def add_doctor(self, doctor):
+        self.doctors.append(doctor)
+
+    def schedule_appointment(self, patient_name, doctor_name, date, time_slot):
+        patient = next((p for p in self.patients if p.name == patient_name), None)
+        doctor = next((d for d in self.doctors if d.name == doctor_name), None)
+        if not patient and not doctor:
+            print('Something went wrong... Patient/Doctor not found\n')
+            return
+# ...
+```
+Presumably, these examples can be considered as potential examples of Abstraction, because when I define a class, I'm abstracting away the implementation details and focusing on defining the structure and behavior of objects. Users of the class don't need to know how the class is implemented internally and they only need to understand how to interact with its public interface. You only need to know what each method does and how to use it and if you know how it works, well, you can simply call the methods you need without worrying about the underlying logic or algorithms. 
 #### **Polymorphism:**
 Polymorphism can be seen several times. The inheritance hierarchy between `Patient` and `Doctor` classes demonstrates polymorphism. Here's how:
 ```
@@ -465,7 +505,7 @@ With all of the implementations mentioned, here is how the file 'pyResults.txt' 
 
 It wasn't very simple to implement everything that I've wanted to. At the end of the day, I take all of this work as a huge positive. However there are issues worth mentioning before heading towards results and conclusions.
 
-My biggest nightmare was to operate with the time. That includes checking if the appointment is valid, checking the status. Luckily, I was able to succeed regardless.
+My biggest nightmare was to operate with the time. That includes checking if the appointment is valid, checking the status. Luckily, I was able to relatively succeed regardless.
 ```
 import time
 import datetime
@@ -620,3 +660,7 @@ or:
 Basically, I've added these implementations just for the sake of it. Do I really need them? Not necessarily. Should they really be here? Most likely not, due to the fact that I'm not sure how to utilize them.
 
 ## Results and Conclusion
+
+The completion of this coursework has me yielded a quite decent and solid understanding of Object-Oriented Programming concept even though it was quite a task to make a transition from Procedural Programming. Even though I've had difficulties to implement everything I've wanted and my code having plenty of room to be improved, I am more than happy with the results of my course work. As a non-really-programming person, I've found that with the help from AI even though it generated a lot of my code, I've basically understood everything AI has offered me.
+
+In conclusion, the transition from Procedural Programming to OOP in such short time span was difficult. 
