@@ -253,3 +253,9 @@ class Observable:  # design pattern
 Subject `Observable` defines the interface for attaching and detaching observers, as well as it maintains a list of observers and notifies them of state changes. Methods `notify_observers` and `notify_observers_items` are responsible for notifying the program about executed queries in the code. For example:
 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/5e75e1d7-896e-4409-964c-78bdbd4a5bb6)
+
+Here, messages like `New appointment scheduled` and `Appointment has been scheduled successfully` are printed, which suggest that changes were successful. It was `notify_observers` responsibility. On the other hand, `notify_observers_items` is responsible for notifying about item search, update, add:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/1cb34131-5f43-4831-bd16-4097552304e6)
+
+Here you can see that query of adding an item was successfully completed.
