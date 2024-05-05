@@ -325,6 +325,37 @@ In `schedule_appointment` method, if every stipulation is satisfied, in the `Hos
 Now, how I implemented the Observer for the item inventory:
 ```
 class Item:
-# initialization
+# initialization and display info method ...
+    def __str__(self):
+        description = f"Item name: {self.item_name}, Item quantity: {self.item_quantity}, Item category: {self.item_category}"
+        if self.item_description:
+            description += f", Item description: {self.item_description}"
+        return description
+```
+In this section all of the required data is printed out as a string. Next, specific message(-s) will be printed, depending on the feature you want to operate with, This was achieved in the `Inventory` class:
+```
+class Inventory(Observable):
+    def __init__(self):
+        super().__init__()
+        self.items = []
 
+    def add_item(self, item):
+        self.items.append(item)
+        self.notify_observers_items("Item added: " + str(item))
+
+    def remove_items(self, rm_item_name):
+        self.items = [item for item in self.items if item.name != rm_item_name]
+
+    def update_item_inventory(self, item_name, new_quantity):
+        for item in self.items:
+            if item.item_name == item_name:
+                item.item_quantity = new_quantity
+                self.notify_observers_items(item)
+
+    def search_item(self, query):
+        s_result = [item for item in self.items if query.lower() in item.item_name.lower()]
+        item_names = [item.item_name for item in s_result]
+        result_string = ", ".join(item_names)
+        self.notify_observers_items("Search results: " + result_string)
+        return s_result
 ```
