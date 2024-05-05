@@ -226,7 +226,7 @@ class ItemReceiver(Observable):
 When you call `notify_observers` on a `Hospital` object or an `Inventory` object, the specific implementation defined in that class is executed. This allows different subclasses to provide their own behavior for the inherited method, showcasing another form of polymorphism. So, the code demonstrates polymorphism through inheritance with overridden methods and through the use of an abstract base class (`Observable`) that allows subclasses to define specific notification behaviors.
 
 ## Examples of the design patterns used in this work
-#### **Observer pattern:**
+#### Observer pattern:
 Observer is a behavioral design pattern that allows some objects to notify other objects about changes in their state. Let's take a look at the main class of the Observer pattern.
 ```
 class Observable:  # design pattern
@@ -360,3 +360,36 @@ class Inventory(Observable):
         return s_result
 ```
 #### Factory method:
+Factory method is a creational design pattern which solves the problem of creating product objects without specifying their concrete classes. Let's take a look into Factory method in this code:
+```
+class Factory:  # design pattern
+    @staticmethod
+    def create_person(person_type, *args, **kwargs):
+        if person_type == 'patient':
+            return Patient(*args, **kwargs)
+        elif person_type == 'doctor':
+            return Doctor(*args, **kwargs)
+        else:
+            return "Invalid person type..."
+
+```
+As you can see, I have made that just two types of a person is available - `patient` and `doctor`. If the method receives anything else other than these two strings, a corresponding message will be shown, like `Invalid person type...`. Now, how do we create a person then? It's really simple. Here is a snippet:
+```
+patient_factory = Factory.create_person("patient", "Alice Rosemann", 30, "12345690", "Female", "15 Street, City")
+hospital.add_patients(patient_factory)
+patient_factory = Factory.create_person("patient", "Noah Robertson", 40, "14784125", "Male", "124 Main Street, City")
+hospital.add_patients(patient_factory)
+patient_factory = Factory.create_person("patient", "Marcus Rashford", 24, "17845236", "Male", "153 Street, City")
+hospital.add_patients(patient_factory)
+```
+And just like that, we have created three patients, which will be stored in `self.patients = []` list (it resides in the `class Hospital`). Similarly, `self.doctors = []` is in the same `class Hospital` and will store all of the created doctors. Creating a doctor is a similar simple task, like we did when we were creating a patient:
+```
+doctor_factory = Factory.create_person("doctor", "Bob Smith", 25, "11223364", "Male", "Cardiologist", 200, 8)
+hospital.add_doctor(doctor_factory)
+doctor_factory = Factory.create_person("doctor", "Robert Ryerson", 37, "11226548", "Male", "Gynecologist", 200, 7)
+hospital.add_doctor(doctor_factory)
+doctor_factory = Factory.create_person("doctor", "Rosie Richards", 35, "11229578", "Female", "Nurse", 50, 12)
+hospital.add_doctor(doctor_factory)
+doctor_factory = Factory.create_person("doctor", "Andrew Greenwood", 32, "11224758", "Male", "Surgeon", 350, 7)
+hospital.add_doctor(doctor_factory)
+```
