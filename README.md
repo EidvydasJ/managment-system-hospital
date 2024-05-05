@@ -409,3 +409,35 @@ hospital.add_doctor(doctor_factory)
 doctor_factory = Factory.create_person("doctor", "Andrew Greenwood", 32, "11224758", "Male", "Surgeon", 350, 7)
 hospital.add_doctor(doctor_factory)
 ```
+
+## File handling
+I thought it was quite a difficult task to operate with files using all of the patients and doctors, since then Factory method would lose its credibility. Of course, I still can use Factory to create another person, but I believed there was no need because I simply wanted to showcase an instance of actually using Factory from zero. Instead of this, I thought it would be a good idea to utilize file reading and writing with another type of data - items. Firstly, I've created a text file called 'pyResults.txt'. Then my goal was to make the file stay the same if nothing really changes (here I mean the situations where I run the program multiple times. The file should contain the same data, without overwriting and appending unnecessary text). After succeeding, I've removed everything the file contained and have written some data of my own, in this case: `Paper Sheet,250,Utility,Used for documenting`. So the idea was to see if it'd remembered what was in the file before and write the new components at the end of it, without overwritting the file completely. And it worked.
+
+Now, let's take a look at the implementation. I was executing it in the `class Inventory`:
+```
+# ....the code....
+    def save_inventory(self, filename):
+        existing_inventory = {}
+        try:
+            with open(filename, "r") as file:
+                for line in file:
+                    name, quantity, category, description = line.strip().split(',')
+                    existing_inventory[name] = (int(quantity), category, description)
+        except FileNotFoundError:
+            pass
+
+        for item in self.items:
+            existing_inventory[item.item_name] = (item.item_quantity, item.item_category, item.item_description)
+
+        with open(filename, "w") as file:
+            for name, (quantity, category, description) in existing_inventory.items():
+                file.write(f"{name},{quantity},{category},{description}\n")
+
+    def load_inventory(self, filename):
+        with open(filename, "r") as file:
+            for line in file:
+                name, quantity, category, description = line.strip().split(',')
+                self.items.append(Item(name, int(quantity), category, description))
+
+```
+Now, you might wonder why in the `except` section I am not doing anything. It's because I want to handle an exception but I don't want to take any specific actions. The code works just fine even when I'm not actually doing anything. In addition, Chat GPT suggested that it's fine to use `pass`. The AI encouraged me actually, suggesting that using `pass` leaves the door open for future modifications, meaning I can edit the code on the get go whenever I need to, without having to refactor the existing code significantly.
