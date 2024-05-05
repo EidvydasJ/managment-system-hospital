@@ -359,6 +359,22 @@ class Inventory(Observable):
         self.notify_observers_items("Search results: " + result_string)
         return s_result
 ```
+Lastly, here is how an Observer is being created for each method:
+```
+hospital = Hospital()
+appointment_notifier = AppointmentNotifier()
+hospital.add_an_observer(appointment_notifier)
+
+inventory = Inventory()
+item_receiver = ItemReceiver()
+inventory.add_an_observer(item_receiver)
+
+item_search = ItemSearch()
+item_update = ItemUpdate()
+inventory.add_an_observer(item_search)
+
+inventory.add_an_observer(item_update)
+```
 #### Factory method:
 Factory method is a creational design pattern which solves the problem of creating product objects without specifying their concrete classes. Let's take a look into Factory method in this code:
 ```
