@@ -461,6 +461,8 @@ With all of the implementations mentioned, here is how the file 'pyResults.txt' 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/d14ac4bd-f025-4538-b8ce-fb51f0d5df21)
 
 ## Difficulties; potential problems that will require additional attention
+#### Difficulties:
+
 It wasn't very simple to implement everything that I've wanted to. At the end of the day, I take all of this work as a huge positive. However there are issues worth mentioning before heading towards results and conclusions.
 
 My biggest nightmare was to operate with the time. That includes checking if the appointment is valid, checking the status. Luckily, I was able to succeed regardless.
@@ -504,9 +506,76 @@ class Appointment:
     def is_upcoming(self):
         return not self.is_happening_now() and not self.has_ended()
 ```
-I've made that an appointment would be 15 minutes. This is how I could operate with the time and check the status of the appointment. Toughest part here is perhaps utilizing map() function, where I split hours and minutes apart and operate independently. But firstly, I have to check this condition- `if self.date != current_date: return False`. If the appointment's date matches the current date, the method calculates the time difference between the appointment's time slot and the current time. It converts both the appointment time slot and the current time to minutes since midnight to facilitate comparison. The method checks if the time difference calculated is less than or equal to 15 minutes. This threshold is used to determine if the appointment is considered to be happening now. If the difference is within the threshold, it returns `True`, indicating that the appointment is currently ongoing. If the difference exceeds the threshold, it returns `False`, indicating that the appointment is not currently ongoing.
+I've made that an appointment would be 15 minutes. This is how I could operate with the time and check the status of the appointment. Toughest part here is perhaps utilizing `map() .split(':')` function, where I split hours and minutes apart and operate independently. But firstly, I have to check this condition- `if self.date != current_date: return False`. If the appointment's date matches the current date, the method calculates the time difference between the appointment's time slot and the current time. It converts both the appointment time slot and the current time to minutes since midnight to facilitate comparison. The method checks if the time difference calculated is less than or equal to 15 minutes. This threshold is used to determine if the appointment is considered to be happening now. If the difference is within the threshold, it returns `True`, indicating that the appointment is currently ongoing. If the difference exceeds the threshold, it returns `False`, indicating that the appointment is not currently ongoing.
 
 Now, `has_ended` method is responsible for ensuring if the appointment has already ended. The logic is simple here, as the current date and time should exceed the appointment date and time, should the appointment be finished.
 
 Finally, easiest logic here in `is_upcoming` method. We simply say that if none of the cases are true, that means only one can be true. That is why there's only one line needed: `return not self.is_happening_now() and not self.has_ended()`.
+
+Okay, but where do we *actually* check the appointment status?
+```
+class Appointment:
+# ...
+    def display_info(self):
+        print("Patient: ", self.patient.name)
+        print("Doctor: ", self.doctor.name)
+        print(f"Date {self.date}, time {self.time_slot}")
+
+        if self.is_happening_now():
+            print("This appointment is happening right now.")
+        elif self.is_upcoming():
+            print("This appointment is upcoming.")
+        elif self.has_ended():
+            print("This appointment has ended.")
+```
+Simple as that, right?
+
+```
+class Hospital(Observable):
+# ...
+    def schedule_appointment(self, patient_name, doctor_name, date, time_slot):
+        patient = next((p for p in self.patients if p.name == patient_name), None)
+        doctor = next((d for d in self.doctors if d.name == doctor_name), None)
+        if not patient and not doctor:
+            print('Something went wrong... Patient/Doctor not found\n')
+            return
+
+        try:
+            hours, minutes = map(int, time_slot.split(':'))
+            if hours < 0 or hours > 23 or minutes < 0 or minutes > 59:
+                raise ValueError("Invalid time! The time should be between 00:00 and 23:59.\n")
+        except ValueError as e:
+            print(e)
+            raise
+
+        appointment = Appointment(patient, doctor, date, time_slot)
+        self.appointments.append(appointment)
+        self.notify_observers(appointment)
+        print('Appointment has been scheduled successfully.\n')
+
+```
+Here I've been told by Chat GPT to use this way of scheduling the appointments. Firstly, we check if the patient that is looking forward to visit a doctor is existing, much like we check if the doctor is existing. If the output is `False` (meaning the doctor and the patient have been found in their respective lists `self.patients` and `self.doctors`), we are safe to move to the next check phase. If the output is `True`, a message `Something went wrong... Patient/Doctor not found` is printed. In the `try-except` block, I am checking if the time format is correct. The time cannot be `-01:65` or `25:00`, right?
+
+#### Potential problems that will require additional attention:
+
+Main issue I am seeing im my work is actually related to files. If you run the program multiple times, the file does not change, like I wanted. But, a problem occurs because of the file. You see, the results I am seeing may not be consistent. Let's take the shaped file as an example:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/d14ac4bd-f025-4538-b8ce-fb51f0d5df21)
+
+Let's look at the output terminal:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/f7055554-5d34-476b-abcf-5c55e1bf9b0b)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/5b096945-443c-403e-8914-e86ad5c0c3eb)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/ea53f593-0993-4ada-9c23-39cf8d420f3e)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/7e1ddca2-95e9-49da-a072-5c45fcab3b57)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/c4c99c16-5873-45be-a267-648acb7ad085)
+
+As you can clearly see, the program behaves weirdly. 
+
+
+
 
