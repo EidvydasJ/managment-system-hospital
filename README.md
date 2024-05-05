@@ -446,3 +446,18 @@ Now, you might wonder why in the `except` section I am not doing anything. It's 
 
 `load_inventory` method is responsible for loading inventory data from 'pyResults.txt'. It opens the file in read mode ("r"). It then iterates over each line in the file, splitting it into fields (name, quantity, category, description), and creates `Item` objects from the data. For each line in the file, it creates an `Item` object with the extracted data and adds it to the inventory. After processing all lines in the file, the method closes the file. These methods provide a way to persist inventory data to a file (`save_inventory`) and retrieve inventory data from a file (`load_inventory`). They are essential for maintaining data between program executions and for sharing data between different instances of the program.
 
+Here's how I create an item:
+```
+item1 = Item("Gloves", 2, "Medical device", "Mandatory for surgeons and nurses")
+item2 = Item("Surgical Knife", 1, "Medical device", "Surgeon's best friend")
+inventory.add_item(item1)
+inventory.add_item(item2)
+
+new_item = Item("Disposable Syringe", 100, "Medical device", "Single-use syringes for medical procedures")
+inventory.add_item(new_item)
+```
+With all of the implementations mentioned, here is how the file 'pyResults.txt' is looking after running the code:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/d14ac4bd-f025-4538-b8ce-fb51f0d5df21)
+
+
