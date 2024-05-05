@@ -251,4 +251,5 @@ class Observable:  # design pattern
         pass
 ```
 Subject `Observable` defines the interface for attaching and detaching observers, as well as it maintains a list of observers and notifies them of state changes. Methods `notify_observers` and `notify_observers_items` are responsible for notifying the program about executed queries in the code. For example:
+
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/5e75e1d7-896e-4409-964c-78bdbd4a5bb6)
