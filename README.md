@@ -574,8 +574,18 @@ Let's look at the output terminal:
 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/c4c99c16-5873-45be-a267-648acb7ad085)
 
-As you can clearly see, the program behaves weirdly. 
+As you can clearly see, the program behaves weirdly. At some cases, it shouldn't print unnecessary lines, as well as duplicates (disposable syringes). Well, let's try to remove the last line. That line is actually an instance where I'm creating an item and then saving it in the inventory and later on command to load.
 
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/979b3477-90be-4324-82a0-f9982c6ddd84)
 
+Now take a look at the results:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/a66e3544-2c6f-4561-a909-46be5b5b9c7d)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/dc0c308c-8269-4637-b617-5969eb41bec2)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/08de68e8-5e60-4e5c-847c-7ada090cfca2)
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/ba4c53d5-51ac-4ae9-ab36-a016a2964374)
 
 
