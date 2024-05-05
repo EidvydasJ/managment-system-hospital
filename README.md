@@ -146,7 +146,7 @@ class Doctor(Person):
 Here you can see another instance of Inheritance. This time we have a class that has its own attributes that are being inherited by two other classes. In this case, `class Person` has a set of standard data like name, age, phone and gender. Later on, `class Patient` and `class Doctor` inherit all of the attributes, but also are being given their own attributes like `address` for patients and `specialization`,`hourly_rate` and `hours_worked` for doctors.
 
 #### **Abstraction:**
-I've realised that to this date I don't the difference between Encapsulation and Abstraction. I really feel like they are the same thing, even though I've been told otherwise. Even the examples I've seen couldn't help me understand it more. Just for this case, I've asked Chat GPT to look for potential examples of Abstraction. Obviously, GPT finds and generates anything you need. Well, the results are as follows:
+I've realised that to this date I don't see the difference between Encapsulation and Abstraction. I really feel like they are the same thing, even though I've been told otherwise. Even the examples I've seen couldn't help me understand it more. Just for this case, I've asked Chat GPT to look for potential examples of Abstraction. Obviously, GPT finds and generates anything you need. Well, the results are as follows:
 
 ```
 class Item:
@@ -743,6 +743,7 @@ Now take a look at the results:
 Even though there still are some unnecessary text, but hey, the difference is clear, right? That concludes it for this section. This would be the only reminder- either to remove content from the file, or to change the data before running the program.
 
 #### Possible improvements?
+Well, firstly, I think that I really should fully comprehend basics - OOP pillars. Most likely, I haven't fulfilled the task of implementing all 4 of them, due to the fact that I can't tell the difference between Encapsulation and Abstraction.
 
 Perhaps, searching an item should be implemented in the other way so it would not interfere with the rest of the code:
 ```
