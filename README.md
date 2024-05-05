@@ -460,4 +460,53 @@ With all of the implementations mentioned, here is how the file 'pyResults.txt' 
 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/d14ac4bd-f025-4538-b8ce-fb51f0d5df21)
 
+## Difficulties; potential problems that will require additional attention
+It wasn't very simple to implement everything that I've wanted to. At the end of the day, I take all of this work as a huge positive. However there are issues worth mentioning before heading towards results and conclusions.
+
+My biggest nightmare was to operate with the time. That includes checking if the appointment is valid, checking the status. Luckily, I was able to succeed regardless.
+```
+import time
+import datetime
+curr = datetime.datetime.now()
+print(f"Code has been executed on: ", curr)
+```
+This is a snippet of the very first lines in my code. Purpose is quite simple - to show what time the code has been executed. Output in the terminal:
+
+![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/341505ab-cd28-4f8d-8ea8-a50ec5410525)
+
+I tried using `time.localtime()`, `time.gmtime()` alongside `time.mktime()`, `time.strftime()` methods, but to no avail. That was until I asked Copilot for help. Copilot helped me to resolve this issue. AS you can see, the time is shown just like I wanted to. 
+
+Now, the next instance where I had to operate with time was appointment scheduling.
+```
+class Appointment:
+# ...
+    def is_happening_now(self):
+        current_time = time.localtime()
+        current_date = time.strftime("%Y-%m-%d", current_time)
+        current_time_slot = time.strftime("%H:%M", current_time)
+
+        if self.date != current_date:
+            return False
+
+        appointment_hours, appointment_minutes = map(int, self.time_slot.split(':'))
+
+        current_hours, current_minutes = map(int, current_time_slot.split(':'))
+
+        time_difference = abs((current_hours * 60 + current_minutes) - (appointment_hours * 60 + appointment_minutes))
+        return time_difference <= 15
+
+    def has_ended(self):
+        current_time = time.localtime()
+        current_date = time.strftime("%Y-%m-%d", current_time)
+        current_time_slot = time.strftime("%H:%M", current_time)
+        return self.date < current_date or (self.date == current_date and self.time_slot < current_time_slot)
+
+    def is_upcoming(self):
+        return not self.is_happening_now() and not self.has_ended()
+```
+I've made that an appointment would be 15 minutes. This is how I could operate with the time and check the status of the appointment. Toughest part here is perhaps utilizing map() function, where I split hours and minutes apart and operate independently. But firstly, I have to check this condition- `if self.date != current_date: return False`. If the appointment's date matches the current date, the method calculates the time difference between the appointment's time slot and the current time. It converts both the appointment time slot and the current time to minutes since midnight to facilitate comparison. The method checks if the time difference calculated is less than or equal to 15 minutes. This threshold is used to determine if the appointment is considered to be happening now. If the difference is within the threshold, it returns `True`, indicating that the appointment is currently ongoing. If the difference exceeds the threshold, it returns `False`, indicating that the appointment is not currently ongoing.
+
+Now, `has_ended` method is responsible for ensuring if the appointment has already ended. The logic is simple here, as the current date and time should exceed the appointment date and time, should the appointment be finished.
+
+Finally, easiest logic here in `is_upcoming` method. We simply say that if none of the cases are true, that means only one can be true. That is why there's only one line needed: `return not self.is_happening_now() and not self.has_ended()`.
 
