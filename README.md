@@ -588,4 +588,33 @@ Now take a look at the results:
 
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/ba4c53d5-51ac-4ae9-ab36-a016a2964374)
 
+Even though there still are some unnecessary text, but hey, the difference is clear, right? That concludes it for this section. This would be the only reminder- either to remove content from the file, or to change the data before running the program.
 
+#### Possible improvements?
+
+Perhaps, searching an item should be implemented in the other way so it would not interfere with the rest of the code:
+```
+Query = "Paper Sheet"
+result = inventory.search_item(Query)
+for item_search in result:
+    item_search.display_info()
+```
+Or maybe I should really work on where I should use these:
+```
+inventory.load_inventory("pyResults.txt")
+inventory.save_inventory("pyResults.txt")
+inventory.display_inventory()
+```
+Because these little fellas might be the reason my results could be inconsistent in the long run. Quite possibly, that using `inventory.items = []` more often could help me operate with the data more easily, as `inventory.items = []` this operation should remove all items from the inventory, making it empty. 
+
+Another part which could be improved is not to use something in the code, if I don't need it or don't plan to use it, like:
+```
+    def remove_items(self, rm_item_name):
+        self.items = [item for item in self.items if item.name != rm_item_name]
+```
+or:
+```
+    def remove_an_observer(self, observer):
+        self._observers.append(observer)
+```
+Basically, I've added these implementations just for the sake of it. Do I really need them? Not necessarily. Should they really be here? Most likely not, due to the fact that I'm not sure how to utilize them.
