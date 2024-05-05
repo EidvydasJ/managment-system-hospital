@@ -259,3 +259,72 @@ Here, messages like `New appointment scheduled` and `Appointment has been schedu
 ![image](https://github.com/EidvydasJ/managment-system-hospital/assets/167422894/1cb34131-5f43-4831-bd16-4097552304e6)
 
 Here you can see that query of adding an item was successfully completed.
+
+Let's dive into how it was implemented:
+```
+class AppointmentNotifier:
+    def update(self, data):
+        print("New appointment scheduled:\n")
+        print(data)
+
+
+class ItemSearch(Observable):
+    def i_update(self, data):
+        print("Item search successful:\n")
+        print(data)
+
+
+class ItemUpdate(Observable):
+    def i_update(self, data):
+        print("Updated inventory stocks:\n")
+        print(data)
+
+
+class ItemReceiver(Observable):
+    def i_update(self, data):
+        print("Shipment arrived and has been received:\n")
+        print(data)
+
+
+```
+Here you can see `class Observable` subclasses, which have their own purpose. `class AppointmentNotifier` prints out `New appointment scheduled` message and then prints out the data. Classes `ItemSearch`, `ItemUpdate` and `ItemReceiver` have their own tasks to do. A corresponding message alongside corresponding data will be printed out.
+
+You might wonder where are these classes are being called. Let me show you:
+```
+class Appointment:
+# initialization
+    def __str__(self):
+        return f"Patient: {self.patient.name}, Doctor: {self.doctor.name}, Date: {self.date}, Time: {self.time_slot}" # here is the corresponding data that will be printed out as a string
+# methods that check the status of the scheduled appointment (if it is upcoming, is it taking place right now or has it ended
+
+class Hospital(Observable):
+# initialization and rest of the class
+    def schedule_appointment(self, patient_name, doctor_name, date, time_slot):
+        patient = next((p for p in self.patients if p.name == patient_name), None)
+        doctor = next((d for d in self.doctors if d.name == doctor_name), None)
+        if not patient and not doctor:
+            print('Something went wrong... Patient/Doctor not found\n')
+            return
+
+        try:
+            hours, minutes = map(int, time_slot.split(':'))
+            if hours < 0 or hours > 23 or minutes < 0 or minutes > 59:
+                raise ValueError("Invalid time! The time should be between 00:00 and 23:59.\n")
+        except ValueError as e:
+            print(e)
+            raise
+
+        appointment = Appointment(patient, doctor, date, time_slot)
+        self.appointments.append(appointment)
+        self.notify_observers(appointment)
+        print('Appointment has been scheduled successfully.\n')
+
+```
+In `schedule_appointment` method, if every stipulation is satisfied, in the `Hospital` class we schedule the appointment, then through the `appointment` object we send data to the `Appointment` class, where the data is returned as a string. The finishing touch of the implementation is the message `Appointment has been scheduled successfully` is returned.
+
+Now, how I implemented the Observer for the item inventory:
+```
+class Item:
+# initialization
+
+```
