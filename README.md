@@ -359,3 +359,4 @@ class Inventory(Observable):
         self.notify_observers_items("Search results: " + result_string)
         return s_result
 ```
+#### Factory method:
